@@ -37,10 +37,10 @@ function App() {
         </nav>
 
         <Routes>
-          <Route path="/" element={<AllNeighborhoods />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/add" element={<AddNeighborhood />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<AllNeighborhoods apiBaseUrl="http://localhost:5000" />} />
+          <Route path="/register" element={<RegisterForm apiBaseUrl="http://localhost:5000" />} />
+          <Route path="/add" element={<AddNeighborhood apiBaseUrl="http://localhost:5000" />} />
+          <Route path="/dashboard" element={<Dashboard apiBaseUrl="http://localhost:5000" />} />
           <Route path="/login" element={<Login setIsAdmin={setIsAdmin} />} />
         </Routes>
       </div>

@@ -2,9 +2,15 @@
 const cors = require('cors');
 const app = express();
 require('dotenv').config();
+//require('dotenv').config();
+
 
 app.use(cors());
 app.use(express.json());
+app.get('/', (req, res) => {
+  res.send('🎉 NeighborFit backend is running!');
+});
+
 
 // Import routes
 const neighborhoodRoutes = require('./routes/neighborhoods');

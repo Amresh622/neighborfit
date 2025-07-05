@@ -11,6 +11,7 @@ const AllNeighborhoods = () => {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchData = () => {
@@ -70,6 +71,10 @@ const AllNeighborhoods = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredNeighborhoods.length === 0 && (
+          <p className="text-center col-span-full text-gray-500">No neighborhoods found.</p>
+        )}
+
         {filteredNeighborhoods.map((n) => (
           <div key={n.id} className="bg-white p-6 rounded-xl shadow space-y-2">
             {editingId === n.id ? (
@@ -119,5 +124,3 @@ const AllNeighborhoods = () => {
 };
 
 export default AllNeighborhoods;
-
-
