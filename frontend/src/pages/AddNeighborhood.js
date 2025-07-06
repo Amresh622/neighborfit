@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const AddNeighborhood = () => {
+const AddNeighborhood = ({ apiBaseUrl }) => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: '',
@@ -28,7 +28,7 @@ const AddNeighborhood = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/api/neighborhoods', form)
+    axios.post(`${apiBaseUrl}/api/neighborhoods`, form)
       .then(res => {
         setMessage('✅ Neighborhood added successfully!');
         setForm({ name: '', city: '', safety: 3, rent: 3, entertainment: 3, transport: 3 });

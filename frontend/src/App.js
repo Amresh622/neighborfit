@@ -19,6 +19,8 @@ function App() {
     setIsAdmin(false);
   };
 
+  const apiBaseUrl = "https://neighborfit-nv0e.onrender.com"; // ✅ Use Render backend URL
+
   return (
     <Router>
       <div className="p-4 bg-blue-100 min-h-screen">
@@ -37,10 +39,10 @@ function App() {
         </nav>
 
         <Routes>
-          <Route path="/" element={<AllNeighborhoods apiBaseUrl="http://localhost:5000" />} />
-          <Route path="/register" element={<RegisterForm apiBaseUrl="http://localhost:5000" />} />
-          <Route path="/add" element={<AddNeighborhood apiBaseUrl="http://localhost:5000" />} />
-          <Route path="/dashboard" element={<Dashboard apiBaseUrl="http://localhost:5000" />} />
+          <Route path="/" element={<AllNeighborhoods apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/register" element={<RegisterForm apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/add" element={<AddNeighborhood apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/dashboard" element={<Dashboard apiBaseUrl={apiBaseUrl} />} />
           <Route path="/login" element={<Login setIsAdmin={setIsAdmin} />} />
         </Routes>
       </div>
