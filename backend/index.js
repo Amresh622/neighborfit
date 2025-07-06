@@ -2,22 +2,23 @@
 const cors = require('cors');
 const app = express();
 require('dotenv').config();
-//require('dotenv').config();
 
-
+// Middleware
 app.use(cors());
 app.use(express.json());
+
+// Simple root route
 app.get('/', (req, res) => {
   res.send('🎉 NeighborFit backend is running!');
 });
 
-
-// Import routes
+// API Routes
 const neighborhoodRoutes = require('./routes/neighborhoods');
 app.use('/api', neighborhoodRoutes);
 
-// Start the server
-app.listen(5000, () => {
-  console.log("✅ Server running on http://localhost:5000");
-});
+// Dynamic port for Render (uses 5000 locally)
+const PORT = process.env.PORT || 5000;
 
+app.listen(PORT, () => {
+  console.log(`✅ Server running on http://localhost:${PORT}`);
+});

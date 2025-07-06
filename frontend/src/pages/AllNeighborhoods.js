@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const AllNeighborhoods = () => {
+const AllNeighborhoods = ({ apiBaseUrl }) => {
   const [neighborhoods, setNeighborhoods] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({});
@@ -15,14 +15,14 @@ const AllNeighborhoods = () => {
   }, []);
 
   const fetchData = () => {
-    axios.get('http://localhost:5000/api/neighborhoods')
+    axios.get(`${apiBaseUrl}/api/neighborhoods`)
       .then(res => setNeighborhoods(res.data))
       .catch(err => console.error("Error fetching:", err));
   };
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this neighborhood?")) {
-      axios.delete(`http://localhost:5000/api/neighborhoods/${id}`)
+      axios.delete(`${apiBaseUrl}/api/neighborhoods/${id}`)
         .then(() => fetchData())
         .catch(() => alert("Failed to delete"));
     }
@@ -44,7 +44,7 @@ const AllNeighborhoods = () => {
   };
 
   const handleUpdate = () => {
-    axios.put(`http://localhost:5000/api/neighborhoods/${editingId}`, editForm)
+    axios.put(`${apiBaseUrl}/api/neighborhoods/${editingId}`, editForm)
       .then(() => {
         setEditingId(null);
         fetchData();

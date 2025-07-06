@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Dashboard = () => {
+const Dashboard = ({ apiBaseUrl }) => {
   const navigate = useNavigate();
   const [data, setData] = useState({
     total: 0,
@@ -17,16 +17,22 @@ const Dashboard = () => {
 
   useEffect(() => {
     const isAdmin = localStorage.getItem('isAdmin') === 'true';
-    if (!isAdmin) navigate('/login');
+    if (!isAdmin) {
+      navigate('/login');
+      return;
+    }
 
-    axios.get('http://localhost:5000/api/neighborhoods')
+    axios.get(`${apiBaseUrl}/api/neighborhoods`)
       .then(res => {
         const neighborhoods = res.data;
         const total = neighborhoods.length;
         const cities = [...new Set(neighborhoods.map(n => n.city))];
 
         const sum = {
-          safety: 0, rent: 0, entertainment: 0, transport: 0
+          safety: 0,
+          rent: 0,
+          entertainment: 0,
+          transport: 0
         };
 
         neighborhoods.forEach(n => {
@@ -46,7 +52,7 @@ const Dashboard = () => {
         setData({ total, cities, avg });
       })
       .catch(err => console.error("Dashboard error:", err));
-  }, [navigate]);
+  }, [navigate, apiBaseUrl]);
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-xl shadow space-y-6">

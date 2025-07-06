@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const RegisterForm = () => {
+const RegisterForm = ({ apiBaseUrl }) => {
   const [form, setForm] = useState({
     name: '',
     safety: 3,
@@ -22,7 +22,7 @@ const RegisterForm = () => {
     e.preventDefault();
     console.log('Sending match data:', form);
 
-    axios.post('http://localhost:5000/api/match', form)
+    axios.post(`${apiBaseUrl}/api/match`, form)
       .then(res => {
         setMatch(res.data);
         setError('');
@@ -38,7 +38,14 @@ const RegisterForm = () => {
       <h2 className="text-2xl font-bold text-center text-green-700">Find Your Perfect Neighborhood</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input name="name" value={form.name} onChange={handleChange} placeholder="Your Name" className="w-full p-2 border rounded" required />
+        <input
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          placeholder="Your Name"
+          className="w-full p-2 border rounded"
+          required
+        />
 
         {['safety', 'rent', 'entertainment', 'transport'].map((field) => (
           <div key={field}>
